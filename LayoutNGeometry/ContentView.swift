@@ -13,32 +13,40 @@ struct ContentView: View {
         GeometryReader { fullView in
             ScrollView {
                 ForEach(0..<50) { number in
-                    GeometryReader { proxy in
+                    let i = fullView.size.height
                         Text("Number: \(number)")
                             .font(.title)
                             .frame(maxWidth: .infinity)
                             .background(colors[number % 7])
-                            .rotation3DEffect(.degrees(proxy.frame(in: .global).minY - fullView.size.height / 2) / 5, axis: (x: 0, y: 1, z: 0))
-                    }
-                    .frame(height: 40)
+                            .visualEffect { content, proxy in
+                                content.rotation3DEffect(.degrees(proxy.frame(in: .global).minY - i / 2) / 5,
+                                                      axis: (x: 0, y: 1, z: 0))
+                            }
+                            
+                
                 }
             }
         }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 0) {
                     ForEach(0..<20) { number in
-                        GeometryReader { proxy in
                                 Text("Number: \(number)")
                                 .font(.largeTitle)
                                 .padding()
                                 .background(.orange)
-                                .rotation3DEffect(.degrees(-proxy.frame(in: .global).minX) / 8, axis: (x: 0, y: 1, z: 0))
                                 .frame(width: 200, height: 200)
-                        }
-                        .frame(width: 200, height: 200)
+                                .visualEffect { content, proxy in
+                                    content.rotation3DEffect(.degrees(-proxy.frame(in: .global).minX) / 8, axis: (x: 0, y: 1, z: 0))
+                                }
+                                
+                                
+                        
+                   
                     }
                 }
+                .scrollTargetLayout()
             }
+            .scrollTargetBehavior(.viewAligned)
         
     }
 }
