@@ -74,6 +74,17 @@ struct ContentView: View {
                 
             }
         }
+        
+        Text("Hey, SwiftUI")
+            .offset(x: 100, y: 50)
+            .background(.green)
+        
+        Text("Hello, Swift!")
+            .background(.red)
+            .position(x: 100, y: 100)
+            
+        
+        
     }
 }
 
