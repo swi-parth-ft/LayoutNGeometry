@@ -18,16 +18,22 @@ struct ContentView: View {
                         
                         let minY = proxy.frame(in: .global).minY
                         let opacity = minY < 200 ? minY / 200 : 1.0
+                        let size = minY < 200 ? max(0.5, minY / 200) : 1
                         
-                        Text("Row #\(index) \(minY)")
+                        let hue = Double(minY / fullView.size.height)
+                                                let color = Color(hue: hue, saturation: 1.0, brightness: 1.0)
+                        
+                        Text("Row #\(index)")
                             .font(.title)
                             .frame(maxWidth: .infinity)
-                            .background(colors[index % 7])
+                            .background(color)
+                            .scaleEffect(size)
                             .opacity(opacity)
                             .rotation3DEffect(.degrees(proxy.frame(in: .global).minY - fullView.size.height / 2) / 5, axis: (x: 0, y: 1, z: 0))
                             
                     }
-                    .frame(height: 40)
+                    .padding()
+                   
                 }
             }
         }
